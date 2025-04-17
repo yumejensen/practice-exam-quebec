@@ -78,6 +78,7 @@ C: Cannot use Object.entries (or others)
 E: N/A
 */
 
+// NUMBER ENTRIES ONLY
 const getNumberEntries = (object) => {
   // output array
   let output = [];
@@ -136,21 +137,32 @@ const mapPurchases = (array) => {
   return array.map((item) => {
     // template literal {title} - Review: {recent review}
     let upCaseTitle = item.product.toUpperCase();
-    let recentReview = item.mostLikedReviews[mostLikedReviews.length-1].text;
+    let recentReview = item.mostLikedReviews[item.mostLikedReviews.length-1].text;
     return `${upCaseTitle} - Review: ${recentReview}`;
   })
 };
-console.log(mapPurchases(purchases)); // not working because mostLikedReviews is not defined??
+console.log(mapPurchases(purchases)); // works!
+
 
 // #5 // --------------------------------------------------------------------------------------------------------------------
 /*
-
-
+I: Array of purchase objects
+O: A string - whatever purchase quantity is, access the word in the product with that index - 1
+   ex: accumulateString(purchases); // => "WiredLGMatesLuxardoBlood" // 21311
+C: Use native reduce method
 */
 
 const accumulateString = (array) => {
-  
+  // reduce method
+  return array.reduce((acc, current) => {
+    // make variables - make product string into an array of words
+    let words = current.product.split(" ");
+    let index = current.quantity - 1;
+    acc += words[index];
+    return acc;
+  }, "");
 };
+console.log(accumulateString(purchases)); // works!
 
 
 // #6 // --------------------------------------------------------------------------------------------------------------------
