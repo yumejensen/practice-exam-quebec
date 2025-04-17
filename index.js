@@ -111,10 +111,10 @@ C: N/A
 
 const addKeyValuePairs = (object, additions) => {
   // reduce method - turn additions into an object
-  // use object assign to combine the objects together
   const addObj = additions.reduce((acc, current) => {
-    let key = current[0];
-    let value = current[1];
+    // let key = current[0];
+    // let value = current[1];
+    const [key, value] = current; // destructured version
     acc[key] = value;
     return acc;
   }, {});
@@ -123,7 +123,6 @@ const addKeyValuePairs = (object, additions) => {
   return Object.assign(object, addObj);
 };
 // works!
-
 
 
 // #3 // --------------------------------------------------------------------------------------------------------------------
@@ -143,6 +142,7 @@ const filterByPrice = (array, price) => {
 };
 //console.log(filterByPrice(purchases, 20)); // works!
 
+
 // #4 // --------------------------------------------------------------------------------------------------------------------
 /*
 I: An array of purchase objects
@@ -154,7 +154,7 @@ C: Use native map method
 const mapPurchases = (array) => {
   // map method on items in array
   return array.map((item) => {
-    // template literal {title} - Review: {recent review}
+    // template literal return string "{title} - Review: {recent review}"
     let upCaseTitle = item.product.toUpperCase();
     let recentReview = item.mostLikedReviews[item.mostLikedReviews.length-1].text;
     return `${upCaseTitle} - Review: ${recentReview}`;
@@ -193,9 +193,10 @@ C: Use recursion
 */
 
 const findProduct = (array, product, output=[]) => {
-  //base case - gone through whole array
+  //base case - gone through whole array and no matches
+  // return [null, null]
   if (array.length === 0){
-    return output;
+    return [null, null];
   }
   //if it matches, put product + category in output
   if (array[0].product === product){
@@ -207,7 +208,7 @@ const findProduct = (array, product, output=[]) => {
     return findProduct(array.slice(1), product, output);
   }
 };
-console.log(findProduct(purchases, "Ergofit Wired Earbuds")); // edge case not fulfilled - not sure why though
+console.log(findProduct(purchases, "Ergofit Wired Earbuds")); // works!
 
 
 // #7 // --------------------------------------------------------------------------------------------------------------------
