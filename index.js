@@ -73,12 +73,11 @@ const purchases = [
 /*
 I: A puchase object
 O: An array of sub arrays
-   ex: ['product', 'Blood Pressure Monitor'] ['quantity', 1] ['price', 49.99]
+   ex: ['quantity', 1] ['price', 49.99]
 C: Cannot use Object.entries (or others)
 E: N/A
 */
 
-// NUMBER ENTRIES ONLY
 const getNumberEntries = (object) => {
   // output array
   let output = [];
@@ -87,24 +86,44 @@ const getNumberEntries = (object) => {
   for (var key in object){
     // sub array
     let subArray = [];
-    subArray.push(key);
-    subArray.push(object[key]);
-    output.push(subArray);
+    // if the value is a number, push
+    if (typeof object[key] === 'number'){
+      subArray.push(key);
+      subArray.push(object[key]);
+      output.push(subArray);
+    }
   }
   return output;
 };
-console.log(getNumberEntries(purchases[0])); // not passing but it looks good to me??
+console.log(getNumberEntries(purchases[0])); // works!
 
 
 // #2 // --------------------------------------------------------------------------------------------------------------------
 /*
+I: An object and additions (array of sub arrays)
+   each sub array is a key and a value to add to the object
+   input looks like:
+   addKeyValuePairs(purchases[1], [ ['purchasedPreviously', false], ['initiatedReturn', true] ]);
 
-
+O: An object with the additions added as keys and values
+C: N/A
 */
 
 const addKeyValuePairs = (object, additions) => {
-  
+  // reduce method - turn additions into an object
+  // use object assign to combine the objects together
+  const addObj = additions.reduce((acc, current) => {
+    let key = current[0];
+    let value = current[1];
+    acc[key] = value;
+    return acc;
+  }, {});
+
+  // use object assign to combine object and addObj
+  return Object.assign(object, addObj);
 };
+// works!
+
 
 
 // #3 // --------------------------------------------------------------------------------------------------------------------
@@ -188,7 +207,7 @@ const findProduct = (array, product, output=[]) => {
     return findProduct(array.slice(1), product, output);
   }
 };
-console.log(findProduct(purchases, "Ergofit Wired Earbuds"));
+console.log(findProduct(purchases, "Ergofit Wired Earbuds")); // edge case not fulfilled - not sure why though
 
 
 // #7 // --------------------------------------------------------------------------------------------------------------------
