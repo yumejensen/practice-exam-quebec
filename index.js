@@ -198,13 +198,14 @@ const findProduct = (array, product, output=[]) => {
   if (array.length === 0){
     return [null, null];
   }
-  //if it matches, put product + category in output
+  //if it matches, put product + category in output and return immediately
   if (array[0].product === product){
-    output.push(array[0].product);
-    output.push(array[0].category)
+    // push into output
+    output.push(array[0].product, array[0].category);
     return output;
     // call self with first sliced off
   } else {
+    // don't need an else technically
     return findProduct(array.slice(1), product, output);
   }
 };
