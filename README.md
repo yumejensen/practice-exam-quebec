@@ -68,3 +68,24 @@ description.
 // example
 accumulateString(purchases); // => "WiredLGMatesLuxardoBlood"
 ```
+
+6. Create a function called `findProduct` that takes in two parameters - `array` and `product`. `array` represents an
+array of purchase objects and `product` represents a string of a purchase's product description. This function should
+use recursion to iterate through the input array and search for the product. If a matching product is found, the function
+should return an array of the object's product description and the category. If no purchase is found matching the product
+description, return an array with null at the 0 and 1 indexes.
+```javascript
+// example output
+findProduct(purchases, "Blood Pressure Monitor"); // => ["Blood Pressure Monitor", "Medical Supplies and Equipment"];
+
+// example output
+findProduct(purchases, "Dr. Pepper Zero"); // => [null, null]
+```
+
+7. Create a function called `filterByReviewLength` that takes in one parameter - `array` - which represents an array of
+purchase objects. This function should use the native filter method to return a new array of only the purchases that have
+a review whose length property is greater than 35.
+```javascript
+// example output
+filterByReviewLength(purchases); // [ {Luxardo Gourmet Cocktail Cherries}, {Blood Pressure Monitor } ]
+```

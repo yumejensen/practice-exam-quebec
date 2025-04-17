@@ -162,5 +162,73 @@ describe("Practice Exam - Quebec", () => {
       accumulateString(purchases);
       Array.prototype.reduce.called.should.be.true;
     });
-  })
+  });
+
+  describe("findProject", () => {
+    it('should return an array', () => {
+      assert.equal(Array.isArray(findProduct(purchases, "Blood Pressure Monitor")), true);
+    })
+    it('should return a correct array if product is found', () => {
+      assert.deepEqual(findProduct(purchases, 'Blood Pressure Monitor'), ['Blood Pressure Monitor', 'Medical Supplies and Equipment']);
+    });
+    it('should return an empty array if no product is found', () => {
+      assert.deepEqual(findProduct(purchases, 'Dr. Pepper Zero'), [null, null]);
+    });
+    it('should use recursion', () => {
+      const func = findProduct.toString();
+      assert.equal(func.includes('return findProduct('), true);
+    });
+  });
+
+  describe("filterByReviewLength", () => {
+    beforeEach(function () {
+      sinon.spy(Array.prototype, 'filter');
+    });
+
+    afterEach(function () {
+      Array.prototype.filter.restore();
+    });
+    it('should return an array', () => {
+      assert.equal(Array.isArray(filterByReviewLength(purchases)), true);
+    });
+    it('should return a correctly filtered array', () => {
+      const result = filterByReviewLength(purchases);
+      const correct = [
+        {
+          product: "Luxardo Gourmet Cocktail Cherries",
+          category: "Grocery",
+          quantity: 1,
+          price: 24.45,
+          mostLikedReviews: [
+            {
+              rating: 5,
+              text: "You can taste the difference between these and marachinos."
+            },
+            {
+              rating: 5,
+              text: "I use these all the time for parties."
+            }
+          ]
+        },
+        {
+          product: "Blood Pressure Monitor",
+          category: "Medical Supplies and Equipment",
+          quantity: 1,
+          price: 49.99,
+          mostLikedReviews: [
+            {
+              rating: 5,
+              text: "Matches my blood pressure at the doctor's office."
+            }
+          ]
+        }
+      ];
+      assert.deepEqual(result, correct);
+    });
+    it('should use the native filter method', () => {
+      filterByReviewLength(purchases);
+      Array.prototype.filter.called.should.be.true;
+    });
+  });
+
 });

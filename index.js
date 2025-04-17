@@ -91,9 +91,17 @@ const mapPurchases = (array) => {
 
 // #5 //
 const accumulateString = (array) => {
-  return array.reduce((acc, current) => {
-    acc += current.product.split(" ")[current.quantity - 1];
-    return acc;
-  }, "");
+  
 };
+
+// #6 //
+const findProduct = (array, product) => {
+  
+};
+
+// #7 //
+const filterByReviewLength = (array) => {
+  
+};
+
 
