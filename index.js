@@ -167,23 +167,51 @@ console.log(accumulateString(purchases)); // works!
 
 // #6 // --------------------------------------------------------------------------------------------------------------------
 /*
-
-
+I: An array of products, and a product (string)
+O: Array of the object's product description and the category
+   findProduct(purchases, "Blood Pressure Monitor"); // => ["Blood Pressure Monitor", "Medical Supplies and Equipment"];
+C: Use recursion
 */
 
-const findProduct = (array, product) => {
-  
+const findProduct = (array, product, output=[]) => {
+  //base case - gone through whole array
+  if (array.length === 0){
+    return output;
+  }
+  //if it matches, put product + category in output
+  if (array[0].product === product){
+    output.push(array[0].product);
+    output.push(array[0].category)
+    return output;
+    // call self with first sliced off
+  } else {
+    return findProduct(array.slice(1), product, output);
+  }
 };
+console.log(findProduct(purchases, "Ergofit Wired Earbuds"));
 
 
 // #7 // --------------------------------------------------------------------------------------------------------------------
 /*
+I: An array of purchase objects
+O: An array of puchases where review length property greater than 35
+   I'm assuming it's string length...
 
-
+   filterByReviewLength(purchases); // [ {Luxardo Gourmet Cocktail Cherries}, {Blood Pressure Monitor } ]
+C: Use native filter method
 */
 
 const filterByReviewLength = (array) => {
-  
+  // filter method
+  return array.filter((item) => {
+    // for loop for inner ratings array
+    for (let i = 0; i < item.mostLikedReviews.length; i++){
+      // if text of rating is longer than 35 return true
+      if (item.mostLikedReviews[i].text.length > 35){
+        return true;
+      }
+    }
+  });
 };
-
+console.log(filterByReviewLength(purchases)); // works!
 
